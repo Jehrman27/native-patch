@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Native Plants Finder
 
-## Getting Started
+Find pollinator-friendly native plants growing in your area, powered by iNaturalist data.
 
-First, run the development server:
+Live: TODO
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Stack: Next.js 16 (App Router) | TypeScript | Tailwind CSS | iNaturalist API | Vercel
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Why I built this
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+I wanted hands-on experience with Next.js App Router and Server Components on a real-world data source rather than a toy app. Native plants support pollinators and local ecosystems, and location-based discovery is a practical way to make this data useful.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## What it does
 
-## Learn More
+- Enter a US zip code and find plants observed nearby.
+- Filter results with URL-driven parameters.
+- Open plant detail pages with richer taxonomy and media data.
+- Prioritize fast server rendering and resilient API handling.
 
-To learn more about Next.js, take a look at the following resources:
+## Architecture decisions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Server Components for primary data fetching to reduce client bundle size.
+- Next.js fetch caching and revalidation to respect API limits.
+- URL-driven filter state for shareable, back-button-friendly UX.
+- Type-safe boundaries for API parsing and transformation.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Trade-offs and future improvements
 
-## Deploy on Vercel
+- Current plan is US-first for zip-based location lookup.
+- Native status may be inferred from available data and should be documented clearly.
+- Future versions can expand to international postal code support and stronger native-status validation.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Running locally
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Install dependencies.
+2. Start the development server.
+3. Open http://localhost:3000.
+
+## Testing
+
+Vitest is configured in this repo. Tests will be added as features are implemented.
+
+## Roadmap
+
+- Week 1: foundation, deployment pipeline, and project identity.
+- Week 2: core zip search and species list flow.
+- Week 3: detail route, filtering, and pagination.
+- Week 4: accessibility and responsive polish.
+- Week 5: tests, README hardening, and release assets.
+
+## Status
+
+In active development.
