@@ -13,17 +13,25 @@ export default function Home() {
       </p>
       <form action={onZipSubmit}>
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col border border-solid rounded-md p-3 border-muted justify-between h-18">
+          <div className="flex flex-col border border-solid rounded-md p-3 border-muted justify-between h-18 focus-within:border-primary">
             <label className="text-xs text-muted" htmlFor="zip-code">
               ZIP CODE
             </label>
-            <input name="zip-code" />
+            <input
+              id="zip-code"
+              name="zip-code"
+              className="bg-transparent text-foreground outline-none"
+            />
           </div>
-          <div className="flex flex-col border border-solid rounded-md p-3 border-muted justify-between h-18">
+          <div className="flex flex-col border border-solid rounded-md p-3 border-muted justify-between h-18 focus-within:border-primary">
             <label className="text-xs text-muted" htmlFor="search-radius">
               SEARCH RADIUS
             </label>
-            <select name="search-radius">
+            <select
+              id="search-radius"
+              name="search-radius"
+              className="bg-transparent text-foreground outline-none"
+            >
               <option value="10">10 miles</option>
               <option value="25">25 miles</option>
               <option value="50">50 miles</option>
@@ -33,7 +41,7 @@ export default function Home() {
           </div>
 
           <button
-            className="bg-primary rounded-lg py-3 text-muted"
+            className="bg-primary rounded-lg py-3 text-primary-foreground font-medium"
             type="submit"
           >
             Find Plants
