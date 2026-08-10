@@ -1,5 +1,3 @@
-import { SearchForm } from "~/components/SearchForm/SearchForm";
-
 export default async function Results({
   searchParams,
 }: {

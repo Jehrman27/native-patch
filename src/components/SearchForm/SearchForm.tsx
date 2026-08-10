@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { findPlants } from "~/app/actions";
 import {
   searchFormSchema,
   searchRadiusOptions,
@@ -10,6 +10,8 @@ import {
 } from "~/lib/validations/search-form";
 
 export function SearchForm() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -19,8 +21,13 @@ export function SearchForm() {
     defaultValues: { zipCode: "", searchRadius: "25" },
   });
 
-  const onSubmit = async (values: SearchFormValues) => {
-    await findPlants(values);
+  const onSubmit = (values: SearchFormValues) => {
+    const params = new URLSearchParams({
+      zipcode: values.zipCode,
+      radius: values.searchRadius,
+    });
+
+    router.push(`/results?${params.toString()}`);
   };
 
   return (
