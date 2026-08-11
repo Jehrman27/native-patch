@@ -23,7 +23,7 @@ export function SearchForm() {
 
   const onSubmit = (values: SearchFormValues) => {
     const params = new URLSearchParams({
-      zipcode: values.zipCode,
+      zipCode: values.zipCode,
       radius: values.searchRadius,
     });
 
