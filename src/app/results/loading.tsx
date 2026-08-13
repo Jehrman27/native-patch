@@ -1,7 +1,7 @@
 import { PlantCardSkeleton } from "~/components/PlantCard/PlantCardSkeleton";
 import { PER_PAGE } from "~/lib/constants";
 
-export default function Loading() {
+export default function ResultsLoading() {
   return (
     <main className="flex flex-col gap-4 px-6 pt-7 pb-20">
       <p className="text-lg font-medium">species near</p>
