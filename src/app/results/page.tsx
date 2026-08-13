@@ -39,10 +39,20 @@ export default async function Results({
   };
 
   return (
-    <main className="flex flex-col gap-4 px-6 py-7">
-      <p className="text-lg font-medium">
-        {plants.total_results} species near {validation.data.zipCode}
-      </p>
+    <main
+      className={`flex flex-col gap-4 px-6 pt-7 ${totalPages > 1 ? "pb-20" : "pb-7"}`}
+    >
+      <div className="flex items-center justify-between">
+        <p className="text-lg font-medium">
+          {plants.total_results} species near {validation.data.zipCode}
+        </p>
+        <Link
+          href="/"
+          className="text-sm text-muted hover:text-foreground transition-colors"
+        >
+          ← New search
+        </Link>
+      </div>
       <div className="flex flex-col gap-3">
         {plants.results.map((plant) => (
           <PlantCard
@@ -55,7 +65,7 @@ export default async function Results({
         ))}
       </div>
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-3 mt-2 text-sm text-muted">
+        <div className="fixed bottom-0 left-0 right-0 flex items-center justify-center gap-3 px-6 py-4 text-sm text-muted bg-background border-t border-foreground/10">
           {currentPage > 1 ? (
             <Link
               href={buildPageUrl(currentPage - 1)}

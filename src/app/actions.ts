@@ -3,11 +3,22 @@
 import { INaturalistResponse, ZippopotamResponse } from "~/lib/schema/schema";
 import type { SearchFormValues } from "~/lib/validations/search-form";
 import { PER_PAGE } from "~/lib/constants";
+import { cacheLife } from "next/cache";
 
 export async function findPlants(values: SearchFormValues, page = 1) {
+  "use cache";
+  cacheLife("hours");
+
   const zippopotamResponse = await fetch(
     `http://api.zippopotam.us/us/${values.zipCode}`,
   );
+
+  if (!zippopotamResponse.ok) {
+    throw new Error(
+      `Could not find location for zip code "${values.zipCode}".`,
+    );
+  }
+
   const zippopotamJson: ZippopotamResponse = await zippopotamResponse.json();
 
   const lat = `?lat=${zippopotamJson.places[0].latitude}`;
