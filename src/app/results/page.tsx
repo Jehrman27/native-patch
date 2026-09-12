@@ -59,7 +59,6 @@ export default async function Results({
             key={plant.taxon.id}
             commonName={plant.taxon.preferred_common_name ?? plant.taxon.name}
             scientificName={plant.taxon.name}
-            isNative={plant.taxon.preferred_establishment_means === "native"}
             imageUrl={plant.taxon.default_photo?.square_url}
           />
         ))}

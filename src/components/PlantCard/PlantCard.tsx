@@ -1,20 +1,18 @@
 type PlantCardProps = {
   commonName: string;
   scientificName: string;
-  isNative: boolean;
   imageUrl?: string;
 };
 
 export const PlantCard = ({
   commonName,
   scientificName,
-  isNative,
   imageUrl,
 }: PlantCardProps) => {
   return (
     <div className="flex gap-3 rounded-lg p-3 bg-white/5">
       <div
-        className="w-[88px] h-[88px] shrink-0 rounded-md overflow-hidden"
+        className="w-22 h-22 shrink-0 rounded-md overflow-hidden"
         style={
           !imageUrl
             ? {
@@ -44,13 +42,6 @@ export const PlantCard = ({
         <span className="text-sm italic text-muted leading-snug">
           {scientificName}
         </span>
-        {isNative && (
-          <div className="flex gap-1 mt-0.5">
-            <span className="text-xs uppercase tracking-wide px-1.5 py-0.5 rounded-sm bg-primary/15 text-primary">
-              NATIVE
-            </span>
-          </div>
-        )}
       </div>
     </div>
   );

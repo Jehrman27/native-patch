@@ -23,8 +23,8 @@ export async function findPlants(values: SearchFormValues, page = 1) {
 
   const lat = `?lat=${zippopotamJson.places[0].latitude}`;
   const long = `&lng=${zippopotamJson.places[0].longitude}`;
-  const rad = `&radius=${values.searchRadius}`;
-  const taxon_id = "&taxon_id=47126";
+  const rad = `&radius=${Math.round(Number(values.searchRadius) * 1.60934)}`;
+  const taxon_id = "&taxon_id=47126&native=true";
   const per_page = `&per_page=${PER_PAGE}`;
   const pageParam = `&page=${page}`;
 
