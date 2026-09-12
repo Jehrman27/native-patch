@@ -26,7 +26,18 @@ export default async function Results({
     );
   }
 
-  const plants = await findPlants(validation.data, currentPage);
+  const result = await findPlants(validation.data, currentPage);
+
+  if (!result.ok) {
+    return (
+      <main className="flex flex-col gap-4 px-6 py-7">
+        <span>No location found for that ZIP code</span>
+        <Link href={"/"}>Back</Link>
+      </main>
+    );
+  }
+
+  const plants = result.data;
   const totalPages = Math.max(1, Math.ceil(plants.total_results / PER_PAGE));
 
   const buildPageUrl = (page: number) => {

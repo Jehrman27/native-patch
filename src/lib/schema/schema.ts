@@ -19,7 +19,7 @@ const zippopotamResponseSchema = z.object({
 
 export type ZippopotamResponse = z.infer<typeof zippopotamResponseSchema>;
 
-const iNaturalistResponseSchema = z.object({
+export const iNaturalistResponseSchema = z.object({
   total_results: z.number(),
   page: z.number(),
   per_page: z.number(),

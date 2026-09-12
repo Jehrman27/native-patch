@@ -1,22 +1,31 @@
 "use server";
 
-import { INaturalistResponse, ZippopotamResponse } from "~/lib/schema/schema";
+import {
+  iNaturalistResponseSchema,
+  type INaturalistResponse,
+  type ZippopotamResponse,
+} from "~/lib/schema/schema";
 import type { SearchFormValues } from "~/lib/validations/search-form";
 import { PER_PAGE } from "~/lib/constants";
 import { cacheLife } from "next/cache";
 
-export async function findPlants(values: SearchFormValues, page = 1) {
+export type FindPlantsResult =
+  | { ok: true; data: INaturalistResponse }
+  | { ok: false; reason: "zip_not_found" };
+
+export async function findPlants(
+  values: SearchFormValues,
+  page = 1,
+): Promise<FindPlantsResult> {
   "use cache";
   cacheLife("hours");
 
   const zippopotamResponse = await fetch(
-    `http://api.zippopotam.us/us/${values.zipCode}`,
+    `https://api.zippopotam.us/us/${values.zipCode}`,
   );
 
   if (!zippopotamResponse.ok) {
-    throw new Error(
-      `Could not find location for zip code "${values.zipCode}".`,
-    );
+    return { ok: false, reason: "zip_not_found" };
   }
 
   const zippopotamJson: ZippopotamResponse = await zippopotamResponse.json();
@@ -28,9 +37,18 @@ export async function findPlants(values: SearchFormValues, page = 1) {
   const per_page = `&per_page=${PER_PAGE}`;
   const pageParam = `&page=${page}`;
 
-  const iNaturalistReponse = await fetch(
+  const iNaturalistResponse = await fetch(
     `https://api.inaturalist.org/v1/observations/species_counts${lat + long + rad + taxon_id + per_page + pageParam}`,
   );
-  const iNaturalistData: INaturalistResponse = await iNaturalistReponse.json();
-  return iNaturalistData;
+
+  if (!iNaturalistResponse.ok) {
+    throw new Error(
+      `iNaturalist request failed with status ${iNaturalistResponse.status}`,
+    );
+  }
+
+  const iNaturalistJson = await iNaturalistResponse.json();
+  const data = iNaturalistResponseSchema.parse(iNaturalistJson);
+
+  return { ok: true, data };
 }
