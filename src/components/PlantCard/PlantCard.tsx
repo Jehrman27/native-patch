@@ -1,13 +1,17 @@
 type PlantCardProps = {
   commonName: string;
   scientificName: string;
+  taxonId: number;
   imageUrl?: string;
+  attribution?: string;
 };
 
 export const PlantCard = ({
   commonName,
   scientificName,
+  taxonId,
   imageUrl,
+  attribution,
 }: PlantCardProps) => {
   return (
     <div className="flex gap-3 rounded-lg p-3 bg-white/5">
@@ -42,6 +46,19 @@ export const PlantCard = ({
         <span className="text-sm italic text-muted leading-snug">
           {scientificName}
         </span>
+        {imageUrl && attribution && (
+          <span className="text-[11px] text-muted/70 leading-snug truncate">
+            {attribution}
+          </span>
+        )}
+        <a
+          href={`https://www.inaturalist.org/taxa/${taxonId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-primary hover:underline w-fit"
+        >
+          View on iNaturalist
+        </a>
       </div>
     </div>
   );

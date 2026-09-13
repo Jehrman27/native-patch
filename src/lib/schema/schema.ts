@@ -78,7 +78,7 @@ export const iNaturalistResponseSchema = z.object({
           .object({
             id: z.number(),
             attribution: z.string(),
-            license_code: z.string(),
+            license_code: z.string().nullable(),
             url: z.string(),
             medium_url: z.string(),
             square_url: z.string(),

@@ -65,14 +65,21 @@ export default async function Results({
         </Link>
       </div>
       <div className="flex flex-col gap-3">
-        {plants.results.map((plant) => (
-          <PlantCard
-            key={plant.taxon.id}
-            commonName={plant.taxon.preferred_common_name ?? plant.taxon.name}
-            scientificName={plant.taxon.name}
-            imageUrl={plant.taxon.default_photo?.square_url}
-          />
-        ))}
+        {plants.results.map((plant) => {
+          const photo = plant.taxon.default_photo;
+          const canShowPhoto = photo != null && photo.license_code !== null;
+
+          return (
+            <PlantCard
+              key={plant.taxon.id}
+              commonName={plant.taxon.preferred_common_name ?? plant.taxon.name}
+              scientificName={plant.taxon.name}
+              taxonId={plant.taxon.id}
+              imageUrl={canShowPhoto ? photo.square_url : undefined}
+              attribution={canShowPhoto ? photo.attribution : undefined}
+            />
+          );
+        })}
       </div>
       {totalPages > 1 && (
         <div className="fixed bottom-0 left-0 right-0 flex items-center justify-center gap-3 px-6 py-4 text-sm text-muted bg-background border-t border-foreground/10">
